@@ -2,8 +2,15 @@ const socketClient = io();
 
 socketClient.on('saludoDesdeBack', (message)=>{
     console.log(message);
+    socketClient.emit('getProducts', 'traeme los productos')
+})
 
-    socketClient.emit('respuestaDesdeFront', 'Muchas gracias')
+socketClient.on('allProducts', (data)=>{
+    let infoProducts = '';
+    data.map((prod)=>{
+        infoProducts += `${prod.title} - $${prod.price} </br>`
+    })
+    products.innerHTML = infoProducts
 })
 
 const form = document.getElementById('form')
@@ -13,19 +20,21 @@ const products = document.getElementById('products')
 
 form.onsubmit = (e) => {
     e.preventDefault();
-    const name = inputName.value;
+    const title = inputName.value;
     const price = inputPrice.value;
     const product = {
-        name,
+        title,
         price
     };
+    inputName.value = "";
+    inputPrice.value = "";
     socketClient.emit('newProduct', product);
 }
 
-socketClient.on('products', (arrayProducts)=>{
+socketClient.on('products', (data)=>{
     let infoProducts = '';
-    arrayProducts.map((prod)=>{
-        infoProducts += `${prod.name} - $${prod.price} </br>`
+    data.map((prod)=>{
+        infoProducts += `${prod.title} - $${prod.price} </br>`
     })
     products.innerHTML = infoProducts
 })
