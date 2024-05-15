@@ -38,7 +38,3 @@ socketClient.on('products', (data)=>{
     })
     products.innerHTML = infoProducts
 })
-
-socketClient.on('message', (message)=>{
-    console.log(message);
-})

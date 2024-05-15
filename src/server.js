@@ -6,24 +6,36 @@ import ProductManager from "./manager/products.manager.js";
 import realTimeProducts from "./routers/realTimeProducts.router.js"
 import products from "./routers/products.router.js"
 
+//instancia de la clase
 const productManager = new ProductManager(__dirname+'/db/products.json')
+
+//ejecutar servidor de express
 const app = express()
-
-app.use(express.json());
-app.use(express.static(__dirname + "/public"));
-app.engine("handlebars", handlebars.engine());
-app.set("view engine", "handlebars");
-app.set("views", __dirname + "/views");
-
-app.use('/realtimeproducts', realTimeProducts)
-app.use('/home', products)
-
 const httpServer = app.listen(8080, () => {
     console.log("Escuchando al puerto 8080");
 });
 
+//ejecuto server IO
 const socketServer = new Server(httpServer);
 
+//statics
+app.use(express.static(__dirname + "/public"));
+
+//handlebars
+app.engine("handlebars", handlebars.engine());
+app.set("view engine", "handlebars");
+app.set("views", __dirname + "/views");
+
+//para realizar consultas en la URL (req.query)
+app.use(express.urlencoded({ extended:true}));
+
+//para manejar archivos json
+app.use(express.json());
+
+//rutas
+app.use('/realtimeproducts', realTimeProducts)
+app.use('/api/products', products) //hay que modificar ruta
+// app.use('/api/products', carts ) //falta crear ruta
 
 socketServer.on('connection', (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
