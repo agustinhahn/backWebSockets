@@ -15,7 +15,7 @@ app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
-// app.use('/realtimeproducts', realTimeProducts)
+app.use('/realtimeproducts', realTimeProducts)
 app.use('/home', products)
 
 const httpServer = app.listen(8080, () => {

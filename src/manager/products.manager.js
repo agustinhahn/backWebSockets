@@ -16,7 +16,7 @@ export default class ProductManager {
             };
             const productsFile = await this.getProducts();
             const productExists = productsFile.find((p) => p.title === product.title);
-            if (productExists) return "este producto ya existe"
+            if (productExists) return console.log("este producto ya existe")
             productsFile.push(product);
             await fs.promises.writeFile(this.path, JSON.stringify(productsFile)) //aca guarda en formato json
             return productsFile
