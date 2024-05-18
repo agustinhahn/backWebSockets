@@ -1,4 +1,17 @@
-<h2>esto es prueba</h2>
-<p id="products">a</p>
-<script src="/socket.io/socket.io.js"></script>
-<script src="js/index.js"></script>
+<div class="containerRealTimeProd">
+<h2 class="titleDinamic">Lista de productos estatica</h2>
+<hr>
+{{#each allProducts}}
+    <div class="containerProds">
+    <p class="titleProds">Title: {{this.title}}</p>
+    <p class="propsProds">Id: {{this.id}}</p>
+    <p class="propsProds">Code: {{this.code}}</p>
+    <p class="propsProds">Category: {{this.category}}</p>
+    <p class="propsProds">Description: {{this.description}}</p>
+    <p class="propsProds">Stock: {{this.stock}}</p>
+    <p class="propsProds">Price: ${{this.price}}</p>
+    </div>
+    <hr>
+    <br />
+{{/each}}
+</div>

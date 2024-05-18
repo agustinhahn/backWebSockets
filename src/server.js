@@ -4,7 +4,6 @@ import { __dirname } from "./utils.js"
 import { Server } from "socket.io"
 import ProductManager from "./manager/products.manager.js";
 import realTimeProducts from "./routers/realTimeProducts.router.js"
-import products from "./routers/products.router.js"
 
 //instancia de la clase
 const productManager = new ProductManager(__dirname+'/db/products.json')
@@ -33,9 +32,7 @@ app.use(express.urlencoded({ extended:true}));
 app.use(express.json());
 
 //rutas
-app.use('/realtimeproducts', realTimeProducts)
-app.use('/api/products', products) //hay que modificar ruta
-// app.use('/api/products', carts ) //falta crear ruta
+app.use('/', realTimeProducts)
 
 socketServer.on('connection', (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
@@ -54,5 +51,9 @@ socketServer.on('connection', (socket) => {
     socket.on('newProduct', async (prod) => {
         await productManager.addProduct(prod)
         socketServer.emit('products', await productManager.getProducts());
+    })
+
+    socket.on('deleteProduct', async(id)=>{
+        await productManager.deleteProduct(id)
     })
 })

@@ -1,10 +1,19 @@
-<h3>SOCKET CLIENTE</h3>
-<form id="form">
-    <label>Product:</label><input type="text" name="name" id="name">
-    <label>Price:</label><input type="number" name="price" id="price">
-    <input type="submit" value="SEND">
-</form>
-<p id="products"></p>
+<div class="containerRealTimeProd">
+    <h3 class="titleRealtime">Agrega un nuevo producto</h3>
+    <form id="form">
+        <input class="inputForm" type="text" name="title" id="title" placeholder="Insert title" required>
+        <input class="inputForm" type="text" name="description" id="description" placeholder="Insert description">
+        <input class="inputForm" type="number" name="code" id="code" placeholder="Insert code" required>
+        <input class="inputForm" type="number" name="price" id="price" placeholder="Insert price" required>
+        <input class="inputForm" type="number" name="stock" id="stock" placeholder="Insert stock" required>
+        <input class="inputForm" type="text" name="category" id="category" placeholder="Insert category" required>
+        <input class="inputSubmitForm" type="submit" value="SEND">
+    </form>
+    <h4 class="titleDinamic">Esta es nuestra lista dinamica de productos</h4>
+    <hr>
+    <p id="products"></p>
+</div>
+
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/index.js"></script>
